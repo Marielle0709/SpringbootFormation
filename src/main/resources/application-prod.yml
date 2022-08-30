@@ -1,0 +1,14 @@
+server:
+  port: 8082
+
+# mysql config
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/finetech
+    username: maribelle
+    password: passer123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create #Create the schema and destroy previous data
+    show-sql: true #enable logging of SQL statements
