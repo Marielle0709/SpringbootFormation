@@ -7,7 +7,6 @@ import java.util.Optional;
 @Service
 public interface
 DepartementService {
-    //the functionnalities to be accessible and used in our project
     Departement create(Departement departement);
     List<Departement> createAll(Iterable<Departement> departements);
     Optional<List<Departement>> findByName(String name);

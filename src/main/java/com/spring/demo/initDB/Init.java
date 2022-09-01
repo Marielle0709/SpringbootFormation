@@ -1,6 +1,7 @@
 package com.spring.demo.initDB;
 
 import com.spring.demo.model.Country;
+import com.spring.demo.model.Departement;
 import com.spring.demo.model.User;
 import com.spring.demo.service.CountryService;
 import com.spring.demo.service.UserService;
@@ -26,24 +27,22 @@ public class Init implements ApplicationListener<ApplicationReadyEvent> {
     public void onApplicationEvent(ApplicationReadyEvent event) {
         System.out.println("Application Ready!");
 
-        //creatio and insertion of records into the database
+
         Country france = new Country("france", "", "fr", "euro");
         Country senegal = new Country("senegal", "pays de la Teranga", "sn", "franc cfa");
 
-        User user1 = new User("Bamba", "Dieng", senegal);
-        User user3 = new User("Lamine", "Gueye", senegal);
-        User user2 = new User("Alex", "Corenthin", france);
+        User user1 = new User("Bamba", "Ndiaye", senegal);
+        User user3 = new User("Marie", "Cisse", senegal);
+        User user2 = new User("Alsane", "Fall", france);
 
-        //countries before users (non nullable constraint)
+        Departement departement1 = new Departement("Rufisque","meilleur departement");
+
         this.countryService.createAll(List.of(france, senegal));
         this.userService.createAll(List.of(user1, user2, user3));
 
-        //functional programming: creating own consumer to display a list of users
         Consumer<List<User>> printUsers = users -> {users.forEach(System.out::println);};
 
-        //display all the users from senegal
         this.userService.findByCountryName("senegal").ifPresent(printUsers);
-        //display all the users with password 'Dieng'
         this.userService.findByPasswordCustomQuery("Dieng").ifPresent(System.out::println);
     }
 }
